@@ -10,11 +10,14 @@ test("the main navigation reaches every on-page section", async ({ page }) => {
     ["O livro", "livro"],
     ["Caminhos", "caminhos"],
     ["A conversa", "conversa"],
+    ["Leituras", "vozes"],
+    ["Autor", "autor"],
     ["Encontros", "encontros"],
   ]) {
     await page.getByRole("link", { name: label, exact: true }).click();
     await expect(page).toHaveURL(new RegExp(`#${id}$`));
     await expect(page.locator(`#${id}`)).toBeVisible();
+    await expect(page.getByRole("link", { name: label, exact: true })).toHaveAttribute("aria-current", "location");
   }
 });
 
@@ -43,6 +46,19 @@ test("purchase and launch-video links point to their official destinations", asy
   await expect(purchaseLinks.first()).toHaveAttribute("target", "_blank");
   await expect(page.locator('a[href^="https://www.youtube.com/watch?v=UYHlW2VYCOo"]')).toHaveCount(6);
 });
+
+for (const [name, viewport] of [
+  ["mobile", { width: 390, height: 844 }],
+  ["tablet", { width: 768, height: 1024 }],
+] as const) {
+  test(`the layout remains usable without horizontal overflow on a ${name} viewport`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    await expect(page.locator(".site-nav")).toBeVisible();
+    await expect(page.getByRole("link", { name: "Adquirir", exact: true })).toBeVisible();
+    expect(await page.locator("main").evaluate((main) => main.scrollWidth <= window.innerWidth)).toBe(true);
+  });
+}
 
 test("the keyboard skip link reaches the main content", async ({ page }) => {
   await page.goto("/");

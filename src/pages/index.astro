@@ -25,7 +25,7 @@ const chapters = [
 <html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content="Antes de Mim, de Raphael Albino — um livro sobre as histórias que nos formam e as escolhas que fazemos com elas." />
     <link rel="canonical" href={canonicalUrl} />
@@ -43,10 +43,12 @@ const chapters = [
     <header class="site-header">
       <a class="brand" href="/">Antes de Mim</a>
       <nav class="site-nav" aria-label="Navegação principal">
-        <a href="#livro">O livro</a>
-        <a href="#caminhos">Caminhos</a>
-        <a href="#conversa">A conversa</a>
-        <a href="#encontros">Encontros</a>
+        <a href="#livro" data-section="livro">O livro</a>
+        <a href="#caminhos" data-section="caminhos">Caminhos</a>
+        <a href="#conversa" data-section="conversa">A conversa</a>
+        <a href="#vozes" data-section="vozes">Leituras</a>
+        <a href="#autor" data-section="autor">Autor</a>
+        <a href="#encontros" data-section="encontros">Encontros</a>
         <a class="header-buy" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Adquirir <span aria-hidden="true">↗</span></a>
       </nav>
     </header>
@@ -62,7 +64,7 @@ const chapters = [
             <a class="button secondary" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Ver formatos e adquirir <span aria-hidden="true">↗</span></a>
           </div>
         </div>
-        <img class="book-cover" src="/images/capa-antes-de-mim.jpg" width="1600" height="2560" alt="Capa do livro Antes de Mim, de Raphael Albino" />
+        <img class="book-cover" src="/images/capa-antes-de-mim.jpg" alt="Capa do livro Antes de Mim, de Raphael Albino" />
       </section>
 
       <section id="livro" class="book" aria-labelledby="titulo-livro">
@@ -117,6 +119,11 @@ const chapters = [
         </div>
       </section>
 
+      <section id="autor" class="section author" aria-labelledby="titulo-autor">
+        <div class="author-photo"><img src="/images/raphael-albino.jpeg" alt="Retrato de Raphael Albino, autor de Antes de Mim." /></div>
+        <div><p class="eyebrow">Sobre o autor</p><h2 id="titulo-autor">Raphael Albino</h2><div class="author-copy"><p>Raphael Albino nasceu no interior de São Paulo, é filho de professores, irmão mais velho e parceiro da Jhê.</p><p>Formado em Sistemas de Informação pela UNESP, tem MBA em Gestão de Projetos pela FGV, mestrado e doutorado em Administração de Empresas pela USP, onde sua tese sobre Transformação Digital recebeu menção honrosa em 2022.</p><p>Atua há mais de 18 anos em tecnologia, integrando negócios, pessoas e sistemas para transformar ideias em impacto. É autor de <em>Métricas Ágeis</em> e coautor de <em>Dynamic Flow</em>.</p></div></div>
+      </section>
+
       <section id="encontros" class="section events" aria-labelledby="titulo-encontros">
         <div><p class="eyebrow">Encontros</p><h2 id="titulo-encontros">A conversa continua em Bauru.</h2></div>
         <div class="event-card">
@@ -129,5 +136,27 @@ const chapters = [
     </main>
 
     <footer class="site-footer"><span>Antes de Mim · Raphael Albino</span><a href={videoUrl} target="_blank" rel="noopener noreferrer">Vídeo de lançamento <span aria-hidden="true">↗</span></a></footer>
+
+    <script>
+      const navigationLinks = [...document.querySelectorAll<HTMLAnchorElement>(".site-nav [data-section]")];
+      const sections = navigationLinks
+        .map((link) => document.getElementById(link.dataset.section ?? ""))
+        .filter((section): section is HTMLElement => section !== null);
+
+      const setActiveLink = (id: string) => {
+        navigationLinks.forEach((link) => {
+          if (link.dataset.section === id) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        });
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActiveLink(visible.target.id);
+      }, { rootMargin: "-35% 0px -55% 0px", threshold: [0, 0.2, 0.5] });
+
+      sections.forEach((section) => observer.observe(section));
+      navigationLinks.forEach((link) => link.addEventListener("click", () => setActiveLink(link.dataset.section ?? "")));
+    </script>
   </body>
 </html>
