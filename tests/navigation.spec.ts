@@ -33,9 +33,16 @@ test("every reading path leads to its essay and back to the reading paths", asyn
     await page.locator(`a[href="${essay}"]`).click();
     await expect(page).toHaveURL(new RegExp(`${essay}$`));
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await page.getByRole("link", { name: "← Voltar aos caminhos de leitura" }).click();
+    await page.getByRole("link", { name: "← Voltar aos caminhos de leitura" }).last().click();
     await expect(page).toHaveURL(/\/#caminhos$/);
   }
+});
+
+test("essay pages retain the full site menu and offer a return at the end", async ({ page }) => {
+  await page.goto("/ensaios/esforco-de-ser-inteiro/");
+  await expect(page.getByRole("navigation", { name: "Navegação principal" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Encontros", exact: true })).toHaveAttribute("href", "/#encontros");
+  await expect(page.getByRole("link", { name: "← Voltar aos caminhos de leitura" })).toHaveCount(2);
 });
 
 test("purchase and launch-video links point to their official destinations", async ({ page }) => {

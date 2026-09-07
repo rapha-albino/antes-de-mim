@@ -1,4 +1,6 @@
 ---
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -28,10 +30,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
-    <header class="site-header">
-      <a class="brand" href="/">Antes de Mim</a>
-      <a class="header-buy" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Adquirir o livro <span aria-hidden="true">↗</span></a>
-    </header>
+    <SiteHeader />
     <main id="conteudo" class="essay" tabindex="-1">
       <a class="essay-back" href="/#caminhos">← Voltar aos caminhos de leitura</a>
       <slot />
@@ -39,10 +38,10 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
         <p>Este ensaio continua uma conversa aberta em <em>Antes de Mim</em>.</p>
         <a class="button primary" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Adquirir o livro <span aria-hidden="true">↗</span></a>
       </section>
+      <nav class="essay-return" aria-label="Retorno aos caminhos de leitura">
+        <a class="essay-back" href="/#caminhos">← Voltar aos caminhos de leitura</a>
+      </nav>
     </main>
-    <footer class="site-footer">
-      <span>Antes de Mim · Raphael Albino</span>
-      <a href="/">Início</a>
-    </footer>
+    <SiteFooter />
   </body>
 </html>

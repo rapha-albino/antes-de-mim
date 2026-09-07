@@ -1,4 +1,6 @@
 ---
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
 import "../styles/global.css";
 ---
 
@@ -12,11 +14,13 @@ import "../styles/global.css";
     <title>Página não encontrada — Antes de Mim</title>
   </head>
   <body>
+    <SiteHeader />
     <main class="closing" tabindex="-1">
       <p class="eyebrow">Página não encontrada</p>
       <h1>Este caminho não está mais aqui.</h1>
       <p>Talvez ele tenha mudado. Você pode voltar ao começo e escolher outro percurso.</p>
       <a class="button primary" href="/">Voltar ao início</a>
     </main>
+    <SiteFooter />
   </body>
 </html>

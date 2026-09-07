@@ -1,0 +1,26 @@
+---
+interface Props {
+  isHome?: boolean;
+}
+
+const { isHome = false } = Astro.props;
+const purchaseUrl = "https://softwarezen.com.br/livros/antes-de-mim/";
+const sections = [
+  ["livro", "O livro"],
+  ["caminhos", "Caminhos"],
+  ["conversa", "A conversa"],
+  ["vozes", "Leituras"],
+  ["autor", "Autor"],
+  ["encontros", "Encontros"],
+];
+---
+
+<header class="site-header">
+  <a class="brand" href="/">Antes de Mim</a>
+  <nav class="site-nav" aria-label="Navegação principal">
+    {sections.map(([id, label]) => (
+      <a href={isHome ? `#${id}` : `/#${id}`} data-section={isHome ? id : undefined}>{label}</a>
+    ))}
+    <a class="header-buy" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Adquirir <span aria-hidden="true">↗</span></a>
+  </nav>
+</header>

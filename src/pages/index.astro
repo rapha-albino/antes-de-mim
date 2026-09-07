@@ -1,4 +1,6 @@
 ---
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
 import "../styles/global.css";
 
 const purchaseUrl = "https://softwarezen.com.br/livros/antes-de-mim/";
@@ -40,18 +42,7 @@ const chapters = [
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
-    <header class="site-header">
-      <a class="brand" href="/">Antes de Mim</a>
-      <nav class="site-nav" aria-label="Navegação principal">
-        <a href="#livro" data-section="livro">O livro</a>
-        <a href="#caminhos" data-section="caminhos">Caminhos</a>
-        <a href="#conversa" data-section="conversa">A conversa</a>
-        <a href="#vozes" data-section="vozes">Leituras</a>
-        <a href="#autor" data-section="autor">Autor</a>
-        <a href="#encontros" data-section="encontros">Encontros</a>
-        <a class="header-buy" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Adquirir <span aria-hidden="true">↗</span></a>
-      </nav>
-    </header>
+    <SiteHeader isHome />
 
     <main id="conteudo" tabindex="-1">
       <section class="hero" aria-labelledby="titulo-principal">
@@ -135,7 +126,7 @@ const chapters = [
       <section class="closing" aria-label="Convite final"><p>O passado não é um lugar para morar. Mas pode ser um lugar para escutar.</p><p><em>Antes de Mim</em> foi escrito para abrir essa conversa.</p><a class="button primary" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Adquirir o livro <span aria-hidden="true">↗</span></a></section>
     </main>
 
-    <footer class="site-footer"><span>Antes de Mim · Raphael Albino</span><a href={videoUrl} target="_blank" rel="noopener noreferrer">Vídeo de lançamento <span aria-hidden="true">↗</span></a></footer>
+    <SiteFooter />
 
     <script>
       const navigationLinks = [...document.querySelectorAll<HTMLAnchorElement>(".site-nav [data-section]")];
