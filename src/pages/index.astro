@@ -1,0 +1,77 @@
+---
+import "../styles/global.css";
+
+const purchaseUrl = "https://www.amazon.com.br/dp/B0H88DK22K";
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="Antes de Mim, de Raphael Albino — um livro sobre as histórias que nos formam e as escolhas que fazemos com elas."
+    />
+    <title>Antes de Mim — Raphael Albino</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/">Antes de Mim</a>
+      <a class="header-buy" href={purchaseUrl} target="_blank" rel="noreferrer">
+        Adquirir o livro <span aria-hidden="true">↗</span>
+      </a>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="titulo-principal">
+        <div>
+          <p class="eyebrow">Raphael Albino</p>
+          <h1 id="titulo-principal">Quem somos não começa em nós.</h1>
+          <p class="lead">
+            Antes de cada escolha, medo, desejo ou silêncio, existem pessoas, lugares,
+            perdas, heranças e caminhos que vieram antes.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#livro">Conhecer o livro</a>
+            <a class="button secondary" href={purchaseUrl} target="_blank" rel="noreferrer">
+              Adquirir na Amazon <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+        <img
+          class="book-cover"
+          src="/images/capa-antes-de-mim.jpg"
+          width="938"
+          height="1500"
+          alt="Capa do livro Antes de Mim, de Raphael Albino"
+        />
+      </section>
+
+      <section id="livro" class="book" aria-labelledby="titulo-livro">
+        <div class="book-inner">
+          <div>
+            <p class="eyebrow">Sobre o livro</p>
+            <h2 id="titulo-livro">Uma conversa, não uma fórmula.</h2>
+          </div>
+          <div class="book-copy">
+            <p>
+              Em <em>Antes de Mim</em>, Raphael Albino parte de memórias, ensaios e
+              fábulas para atravessar uma pergunta simples e profunda: como viver de
+              forma mais inteira em um mundo que tantas vezes nos ensina a nos fragmentar?
+            </p>
+            <p>
+              O livro não oferece fórmulas para a vida. Ele abre espaço para perguntas:
+              o que, em mim, é escolha? O que é herança? O que aprendi a esconder para
+              caber? O que preciso reconhecer para seguir adiante com mais verdade?
+            </p>
+            <a class="button primary" href={purchaseUrl} target="_blank" rel="noreferrer">
+              Adquirir o livro <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
