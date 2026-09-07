@@ -1,0 +1,40 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const purchaseUrl = "https://softwarezen.com.br/livros/antes-de-mim/";
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <title>{title} — Antes de Mim</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <header class="site-header">
+      <a class="brand" href="/">Antes de Mim</a>
+      <a class="header-buy" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Adquirir o livro <span aria-hidden="true">↗</span></a>
+    </header>
+    <main id="conteudo" class="essay" tabindex="-1">
+      <a class="essay-back" href="/#caminhos">← Voltar aos caminhos de leitura</a>
+      <slot />
+      <section class="essay-cta" aria-label="Convite à leitura do livro">
+        <p>Este ensaio continua uma conversa aberta em <em>Antes de Mim</em>.</p>
+        <a class="button primary" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Adquirir o livro <span aria-hidden="true">↗</span></a>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <span>Antes de Mim · Raphael Albino</span>
+      <a href="/">Início</a>
+    </footer>
+  </body>
+</html>

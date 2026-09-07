@@ -34,5 +34,11 @@ jobs:
       - name: Build site
         run: npm run build
 
+      - name: Install browser for navigation tests
+        run: npx playwright install --with-deps chromium
+
+      - name: Test navigation and accessibility
+        run: npm run test:e2e
+
       - name: Check project documentation
         run: test -s README.md

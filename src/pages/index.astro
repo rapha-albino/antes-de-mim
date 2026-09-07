@@ -1,7 +1,22 @@
 ---
 import "../styles/global.css";
 
-const purchaseUrl = "https://www.amazon.com.br/dp/B0H88DK22K";
+const purchaseUrl = "https://softwarezen.com.br/livros/antes-de-mim/";
+const videoUrl = "https://www.youtube.com/watch?v=UYHlW2VYCOo";
+
+const readingPaths = [
+  { title: "Ser inteiro", excerpt: "Competência pode abrir portas. Mas não substitui a experiência de não precisar deixar partes de si do lado de fora para permanecer em um lugar.", href: "/ensaios/esforco-de-ser-inteiro/" },
+  { title: "Romper sem se abandonar", excerpt: "Há um momento em que seguir obedecendo ao que foi esperado de nós se torna uma forma de desobediência a nós mesmos.", href: "/ensaios/ruptura-e-traicao-de-si/" },
+  { title: "Carregar o passado sem morar nele", excerpt: "Não volto ao passado para morar lá. Volto para agradecer, perguntar, reparar no que for possível e seguir.", href: "/ensaios/passado-nao-e-morada/" },
+];
+
+const chapters = [
+  ["03:38", 218, "Uma vida para escrever"],
+  ["27:05", 1625, "O esforço de ser inteiro"],
+  ["57:07", 3427, "Passado, dor e protagonismo"],
+  ["1:14:08", 4448, "Ancestralidade e empatia"],
+  ["1:30:36", 5436, "Esperança como vontade de viver"],
+];
 ---
 
 <!doctype html>
@@ -10,43 +25,37 @@ const purchaseUrl = "https://www.amazon.com.br/dp/B0H88DK22K";
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
-    <meta
-      name="description"
-      content="Antes de Mim, de Raphael Albino — um livro sobre as histórias que nos formam e as escolhas que fazemos com elas."
-    />
+    <meta name="description" content="Antes de Mim, de Raphael Albino — um livro sobre as histórias que nos formam e as escolhas que fazemos com elas." />
+    <meta property="og:title" content="Antes de Mim — Raphael Albino" />
+    <meta property="og:description" content="Um livro sobre as histórias que nos formam e as escolhas que fazemos com elas." />
+    <meta property="og:image" content="/images/capa-antes-de-mim.jpg" />
     <title>Antes de Mim — Raphael Albino</title>
   </head>
   <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <header class="site-header">
       <a class="brand" href="/">Antes de Mim</a>
-      <a class="header-buy" href={purchaseUrl} target="_blank" rel="noreferrer">
-        Adquirir o livro <span aria-hidden="true">↗</span>
-      </a>
+      <nav class="site-nav" aria-label="Navegação principal">
+        <a href="#livro">O livro</a>
+        <a href="#caminhos">Caminhos</a>
+        <a href="#conversa">A conversa</a>
+        <a href="#encontros">Encontros</a>
+        <a class="header-buy" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Adquirir <span aria-hidden="true">↗</span></a>
+      </nav>
     </header>
 
-    <main>
+    <main id="conteudo" tabindex="-1">
       <section class="hero" aria-labelledby="titulo-principal">
         <div>
           <p class="eyebrow">Raphael Albino</p>
           <h1 id="titulo-principal">Quem somos não começa em nós.</h1>
-          <p class="lead">
-            Antes de cada escolha, medo, desejo ou silêncio, existem pessoas, lugares,
-            perdas, heranças e caminhos que vieram antes.
-          </p>
+          <p class="lead">Antes de cada escolha, medo, desejo ou silêncio, existem pessoas, lugares, perdas, heranças e caminhos que vieram antes.</p>
           <div class="actions">
             <a class="button primary" href="#livro">Conhecer o livro</a>
-            <a class="button secondary" href={purchaseUrl} target="_blank" rel="noreferrer">
-              Adquirir na Amazon <span aria-hidden="true">↗</span>
-            </a>
+            <a class="button secondary" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Ver formatos e adquirir <span aria-hidden="true">↗</span></a>
           </div>
         </div>
-        <img
-          class="book-cover"
-          src="/images/capa-antes-de-mim.jpg"
-          width="938"
-          height="1500"
-          alt="Capa do livro Antes de Mim, de Raphael Albino"
-        />
+        <img class="book-cover" src="/images/capa-antes-de-mim.jpg" width="938" height="1500" alt="Capa do livro Antes de Mim, de Raphael Albino" />
       </section>
 
       <section id="livro" class="book" aria-labelledby="titulo-livro">
@@ -56,22 +65,59 @@ const purchaseUrl = "https://www.amazon.com.br/dp/B0H88DK22K";
             <h2 id="titulo-livro">Uma conversa, não uma fórmula.</h2>
           </div>
           <div class="book-copy">
-            <p>
-              Em <em>Antes de Mim</em>, Raphael Albino parte de memórias, ensaios e
-              fábulas para atravessar uma pergunta simples e profunda: como viver de
-              forma mais inteira em um mundo que tantas vezes nos ensina a nos fragmentar?
-            </p>
-            <p>
-              O livro não oferece fórmulas para a vida. Ele abre espaço para perguntas:
-              o que, em mim, é escolha? O que é herança? O que aprendi a esconder para
-              caber? O que preciso reconhecer para seguir adiante com mais verdade?
-            </p>
-            <a class="button primary" href={purchaseUrl} target="_blank" rel="noreferrer">
-              Adquirir o livro <span aria-hidden="true">↗</span>
-            </a>
+            <p>Em <em>Antes de Mim</em>, Raphael Albino parte de memórias, ensaios e fábulas para atravessar uma pergunta simples e profunda: como viver de forma mais inteira em um mundo que tantas vezes nos ensina a nos fragmentar?</p>
+            <p>O livro não oferece fórmulas para a vida. Ele abre espaço para perguntas: o que, em mim, é escolha? O que é herança? O que aprendi a esconder para caber? O que preciso reconhecer para seguir adiante com mais verdade?</p>
+            <a class="button primary" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Adquirir o livro <span aria-hidden="true">↗</span></a>
           </div>
         </div>
       </section>
+
+      <section id="caminhos" class="section" aria-labelledby="titulo-caminhos">
+        <p class="eyebrow">Depois da leitura</p>
+        <h2 id="titulo-caminhos">Três caminhos para continuar a conversa.</h2>
+        <p class="section-intro">O livro não se encerra na última página. Estes ensaios são três entradas para perguntas que seguem trabalhando em nós.</p>
+        <div class="reading-grid">
+          {readingPaths.map((path) => <a class="reading-card" href={path.href}><div><h3>{path.title}</h3><p>{path.excerpt}</p></div><span class="card-link">Ler ensaio <span aria-hidden="true">→</span></span></a>)}
+        </div>
+      </section>
+
+      <section id="conversa" class="conversation" aria-labelledby="titulo-conversa">
+        <div class="conversation-inner">
+          <div>
+            <p class="eyebrow">Lançamento · 28 de agosto</p>
+            <h2 id="titulo-conversa">A conversa que abriu o livro.</h2>
+          </div>
+          <div class="book-copy">
+            <p>No lançamento de <em>Antes de Mim</em>, a conversa saiu do livro e encontrou outras histórias: ancestralidade, solidão, vulnerabilidade, integralidade, medo, ruptura e esperança.</p>
+            <p>O livro foi escrito a partir de uma trajetória pessoal, mas se completa quando passa a abrir perguntas em quem lê.</p>
+            <div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/UYHlW2VYCOo" title="Conversa de lançamento do livro Antes de Mim" loading="lazy" allowfullscreen></iframe></div>
+            <ul class="chapters" aria-label="Capítulos da conversa de lançamento">
+              {chapters.map(([time, seconds, label]) => <li><a href={`${videoUrl}&t=${seconds}`} target="_blank" rel="noopener noreferrer"><time>{time}</time><span>{label} <span aria-hidden="true">↗</span></span></a></li>)}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="vozes" class="section voices" aria-labelledby="titulo-vozes">
+        <p class="eyebrow">Vozes de leitura</p>
+        <h2 id="titulo-vozes">O livro começa em uma história, mas não termina nela.</h2>
+        <p class="section-intro">Estas são algumas das leituras que ele encontrou pelo caminho.</p>
+        <div class="testimonials">
+          <figure class="testimonial"><blockquote>“Além de ter destacado algumas frases que me trouxeram impacto, exercitei ideias que pareciam velhas conhecidas, mas renderam um mergulho profundo na vida que estou reconstruindo.”</blockquote><figcaption>Mariana Graf · Amazon</figcaption></figure>
+          <figure class="testimonial"><blockquote>“Me senti como se tivesse o privilégio de uma conversa de fala calma, daquelas que chegam e te explodem por dentro.”</blockquote><figcaption>Fer Baruk · Amazon</figcaption></figure>
+          <figure class="testimonial"><blockquote>“Em 130 páginas, Raphael me fez rir e chorar com suas histórias.”</blockquote><figcaption>Pérola do Amaral Franco · Amazon</figcaption></figure>
+          <figure class="testimonial"><blockquote>“Um convite a honrar o passado, estar no presente e imaginar futuros mais justos e bons para todas as pessoas.”</blockquote><figcaption>Jeniffer Deus · Amazon</figcaption></figure>
+        </div>
+      </section>
+
+      <section id="encontros" class="section events" aria-labelledby="titulo-encontros">
+        <div><p class="eyebrow">Encontros</p><h2 id="titulo-encontros">A conversa continua.</h2></div>
+        <div class="event-note"><p>O lançamento on-line de 28 de agosto foi a primeira conversa pública de <em>Antes de Mim</em>. Novos encontros serão registrados aqui.</p><p>Enquanto isso, a conversa continua nos ensaios, no vídeo de lançamento e nas leituras compartilhadas.</p></div>
+      </section>
+
+      <section class="closing" aria-label="Convite final"><p>O passado não é um lugar para morar. Mas pode ser um lugar para escutar.</p><p><em>Antes de Mim</em> foi escrito para abrir essa conversa.</p><a class="button primary" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Adquirir o livro <span aria-hidden="true">↗</span></a></section>
     </main>
+
+    <footer class="site-footer"><span>Antes de Mim · Raphael Albino</span><a href={videoUrl} target="_blank" rel="noopener noreferrer">Vídeo de lançamento <span aria-hidden="true">↗</span></a></footer>
   </body>
 </html>

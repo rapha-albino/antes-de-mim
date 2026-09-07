@@ -18,3 +18,9 @@ Para gerar a versão de produção:
 ```bash
 npm run build
 ```
+
+Para verificar a navegação e a acessibilidade automatizada:
+
+```bash
+npm run test:e2e
+```
