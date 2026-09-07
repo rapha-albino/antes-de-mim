@@ -7,9 +7,9 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 const coverUrl = new URL("/images/capa-antes-de-mim.jpg", Astro.site);
 
 const readingPaths = [
-  { title: "Ser inteiro", excerpt: "Competência pode abrir portas. Mas não substitui a experiência de não precisar deixar partes de si do lado de fora para permanecer em um lugar.", href: "/ensaios/esforco-de-ser-inteiro/" },
-  { title: "Romper sem se abandonar", excerpt: "Há um momento em que seguir obedecendo ao que foi esperado de nós se torna uma forma de desobediência a nós mesmos.", href: "/ensaios/ruptura-e-traicao-de-si/" },
-  { title: "Carregar o passado sem morar nele", excerpt: "Não volto ao passado para morar lá. Volto para agradecer, perguntar, reparar no que for possível e seguir.", href: "/ensaios/passado-nao-e-morada/" },
+  { number: "01", title: "O esforço de ser inteiro", question: "O que eu precisei esconder para caber?", href: "/ensaios/esforco-de-ser-inteiro/" },
+  { number: "02", title: "A ruptura que evita a traição de si", question: "O que já não pode seguir comigo?", href: "/ensaios/ruptura-e-traicao-de-si/" },
+  { number: "03", title: "O passado não é um lugar para morar", question: "Como carregar a história sem deixá-la decidir tudo?", href: "/ensaios/passado-nao-e-morada/" },
 ];
 
 const chapters = [
@@ -62,7 +62,7 @@ const chapters = [
             <a class="button secondary" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Ver formatos e adquirir <span aria-hidden="true">↗</span></a>
           </div>
         </div>
-        <img class="book-cover" src="/images/capa-antes-de-mim.jpg" width="938" height="1500" alt="Capa do livro Antes de Mim, de Raphael Albino" />
+        <img class="book-cover" src="/images/capa-antes-de-mim.jpg" width="1600" height="2560" alt="Capa do livro Antes de Mim, de Raphael Albino" />
       </section>
 
       <section id="livro" class="book" aria-labelledby="titulo-livro">
@@ -83,9 +83,9 @@ const chapters = [
         <p class="eyebrow">Depois da leitura</p>
         <h2 id="titulo-caminhos">Três caminhos para continuar a conversa.</h2>
         <p class="section-intro">O livro não se encerra na última página. Estes ensaios são três entradas para perguntas que seguem trabalhando em nós.</p>
-        <div class="reading-grid">
-          {readingPaths.map((path) => <a class="reading-card" href={path.href}><div><h3>{path.title}</h3><p>{path.excerpt}</p></div><span class="card-link">Ler ensaio <span aria-hidden="true">→</span></span></a>)}
-        </div>
+        <ol class="reading-list">
+          {readingPaths.map((path) => <li><a class="reading-path" href={path.href}><span class="path-number">{path.number}</span><span><h3>{path.title}</h3><p>{path.question}</p></span><span class="path-arrow" aria-hidden="true">→</span></a></li>)}
+        </ol>
       </section>
 
       <section id="conversa" class="conversation" aria-labelledby="titulo-conversa">
@@ -118,8 +118,11 @@ const chapters = [
       </section>
 
       <section id="encontros" class="section events" aria-labelledby="titulo-encontros">
-        <div><p class="eyebrow">Encontros</p><h2 id="titulo-encontros">A conversa continua.</h2></div>
-        <div class="event-note"><p>O lançamento on-line de 28 de agosto foi a primeira conversa pública de <em>Antes de Mim</em>. Novos encontros serão registrados aqui.</p><p>Enquanto isso, a conversa continua nos ensaios, no vídeo de lançamento e nas leituras compartilhadas.</p></div>
+        <div><p class="eyebrow">Encontros</p><h2 id="titulo-encontros">A conversa continua em Bauru.</h2></div>
+        <div class="event-card">
+          <img src="/images/lancamento-bauru-20-setembro.png" width="1080" height="1350" alt="Cartaz do lançamento em Bauru: 20 de setembro, domingo, às 15h, na Biblioteca Rodrigues de Abreu." />
+          <div><p class="event-date">20 de setembro · domingo · 15h</p><h3>Lançamento em Bauru</h3><p>Biblioteca Rodrigues de Abreu<br />Av. Nações Unidas, Quadra 8 — Centro<br />Bauru — SP</p><p>Sessão de autógrafos e conversa com o autor.</p></div>
+        </div>
       </section>
 
       <section class="closing" aria-label="Convite final"><p>O passado não é um lugar para morar. Mas pode ser um lugar para escutar.</p><p><em>Antes de Mim</em> foi escrito para abrir essa conversa.</p><a class="button primary" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Adquirir o livro <span aria-hidden="true">↗</span></a></section>
