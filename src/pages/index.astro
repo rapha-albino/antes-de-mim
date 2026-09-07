@@ -3,6 +3,8 @@ import "../styles/global.css";
 
 const purchaseUrl = "https://softwarezen.com.br/livros/antes-de-mim/";
 const videoUrl = "https://www.youtube.com/watch?v=UYHlW2VYCOo";
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const coverUrl = new URL("/images/capa-antes-de-mim.jpg", Astro.site);
 
 const readingPaths = [
   { title: "Ser inteiro", excerpt: "Competência pode abrir portas. Mas não substitui a experiência de não precisar deixar partes de si do lado de fora para permanecer em um lugar.", href: "/ensaios/esforco-de-ser-inteiro/" },
@@ -26,9 +28,14 @@ const chapters = [
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content="Antes de Mim, de Raphael Albino — um livro sobre as histórias que nos formam e as escolhas que fazemos com elas." />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
     <meta property="og:title" content="Antes de Mim — Raphael Albino" />
     <meta property="og:description" content="Um livro sobre as histórias que nos formam e as escolhas que fazemos com elas." />
-    <meta property="og:image" content="/images/capa-antes-de-mim.jpg" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={coverUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
     <title>Antes de Mim — Raphael Albino</title>
   </head>
   <body>

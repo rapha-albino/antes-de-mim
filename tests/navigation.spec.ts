@@ -53,8 +53,24 @@ test("the keyboard skip link reaches the main content", async ({ page }) => {
   await expect(page.locator("main")).toBeFocused();
 });
 
-test("the home page has no automatically detectable accessibility violations", async ({ page }) => {
-  await page.goto("/");
-  const results = await new AxeBuilder({ page }).exclude("iframe").analyze();
-  expect(results.violations).toEqual([]);
+for (const path of [
+  "/",
+  "/ensaios/esforco-de-ser-inteiro/",
+  "/ensaios/ruptura-e-traicao-de-si/",
+  "/ensaios/passado-nao-e-morada/",
+]) {
+  test(`${path} has no automatically detectable accessibility violations`, async ({ page }) => {
+    await page.goto(path);
+    // The embedded YouTube player is third-party content. Its host iframe has a title;
+    // Axe does not audit its internal markup here.
+    const results = await new AxeBuilder({ page }).exclude("iframe").analyze();
+    expect(results.violations).toEqual([]);
+  });
+}
+
+test("an unknown route offers a path back to the site", async ({ page }) => {
+  await page.goto("/um-caminho-ausente");
+  await expect(page.getByRole("heading", { name: "Este caminho não está mais aqui." })).toBeVisible();
+  await page.getByRole("link", { name: "Voltar ao início" }).click();
+  await expect(page).toHaveURL(/\/$/);
 });

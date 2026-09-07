@@ -8,6 +8,7 @@ interface Props {
 
 const { title, description } = Astro.props;
 const purchaseUrl = "https://softwarezen.com.br/livros/antes-de-mim/";
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -16,6 +17,12 @@ const purchaseUrl = "https://softwarezen.com.br/livros/antes-de-mim/";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content={`${title} — Antes de Mim`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
     <title>{title} — Antes de Mim</title>
   </head>
   <body>
