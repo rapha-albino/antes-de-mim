@@ -80,11 +80,23 @@ for (const [name, viewport] of [
   test(`the layout remains usable without horizontal overflow on a ${name} viewport`, async ({ page }) => {
     await page.setViewportSize(viewport);
     await page.goto("/");
-    await expect(page.locator(".site-nav")).toBeVisible();
+    const menu = page.locator("[data-menu-toggle]");
+    await expect(menu).toBeVisible();
+    await menu.click();
+    await expect(menu).toHaveAttribute("aria-expanded", "true");
     await expect(page.getByRole("link", { name: "Adquirir", exact: true })).toBeVisible();
     expect(await page.locator("main").evaluate((main) => main.scrollWidth <= window.innerWidth)).toBe(true);
   });
 }
+
+test("a mobile menu selection keeps the destination title visible below the fixed header", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await page.locator("[data-menu-toggle]").click();
+  await page.getByRole("link", { name: "Encontros", exact: true }).click();
+  await expect(page.locator("#titulo-encontros")).toBeInViewport();
+  await expect(page.locator("[data-menu-toggle]")).toHaveAttribute("aria-expanded", "false");
+});
 
 test("the keyboard skip link reaches the main content", async ({ page }) => {
   await page.goto("/");

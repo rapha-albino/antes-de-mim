@@ -17,10 +17,31 @@ const sections = [
 
 <header class="site-header">
   <a class="brand" href="/">Antes de Mim</a>
-  <nav class="site-nav" aria-label="Navegação principal">
+  <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="site-menu">
+    <span class="menu-icon" aria-hidden="true">☰</span><span>Menu</span>
+  </button>
+  <nav id="site-menu" class="site-nav" aria-label="Navegação principal">
     {sections.map(([id, label]) => (
       <a href={isHome ? `#${id}` : `/#${id}`} data-section={isHome ? id : undefined}>{label}</a>
     ))}
     <a class="header-buy" href={purchaseUrl} target="_blank" rel="noopener noreferrer">Adquirir <span aria-hidden="true">↗</span></a>
   </nav>
 </header>
+
+<script>
+  const menuToggle = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const menu = document.getElementById("site-menu");
+
+  if (menuToggle && menu) {
+    const closeMenu = () => {
+      menu.classList.remove("is-open");
+      menuToggle.setAttribute("aria-expanded", "false");
+    };
+    menuToggle.addEventListener("click", () => {
+      const willOpen = !menu.classList.contains("is-open");
+      menu.classList.toggle("is-open", willOpen);
+      menuToggle.setAttribute("aria-expanded", String(willOpen));
+    });
+    menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+  }
+</script>
