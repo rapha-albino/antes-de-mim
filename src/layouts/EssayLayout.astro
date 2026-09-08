@@ -1,4 +1,5 @@
 ---
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import "../styles/global.css";
@@ -40,6 +41,7 @@ const articleSchema = JSON.stringify({
     <meta name="twitter:card" content="summary" />
     <script type="application/ld+json" set:html={articleSchema}></script>
     <title>{title} — Antes de Mim</title>
+    <GoogleAnalytics />
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>

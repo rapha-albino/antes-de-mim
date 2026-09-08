@@ -1,0 +1,33 @@
+---
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import "../styles/global.css";
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Informações de privacidade do site Antes de Mim." />
+    <meta name="robots" content="index,follow" />
+    <title>Privacidade — Antes de Mim</title>
+    <GoogleAnalytics />
+  </head>
+  <body>
+    <SiteHeader />
+    <main class="essay" tabindex="-1">
+      <p class="eyebrow">Privacidade</p>
+      <h1>Informações sobre dados e navegação</h1>
+      <div class="essay-body">
+        <p>Este site utiliza o Google Analytics para compreender, de forma agregada, como suas páginas são encontradas e utilizadas. Isso pode incluir informações técnicas de navegação, como páginas visitadas, dispositivo, navegador e origem aproximada de acesso.</p>
+        <p>O site não solicita cadastro, não vende dados pessoais e não usa as informações de navegação para decisões individuais sobre visitantes.</p>
+        <p>O Google pode tratar dados conforme suas próprias políticas. Você pode gerenciar cookies e preferências de anúncios nas configurações do seu navegador e da sua conta Google.</p>
+        <p>Para dúvidas sobre privacidade ou este site, escreva para <a href="mailto:contato@rapha-albino.com.br">contato@rapha-albino.com.br</a>.</p>
+      </div>
+    </main>
+    <SiteFooter />
+  </body>
+</html>

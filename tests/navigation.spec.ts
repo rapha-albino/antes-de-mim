@@ -55,6 +55,13 @@ test("the home page exposes search and sharing metadata", async ({ page }) => {
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://antesdemim.art.br/");
   await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /29 ensaios/);
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(1);
+  await expect(page.locator('script[src="https://www.googletagmanager.com/gtag/js?id=G-GYCS3SVHXG"]')).toHaveCount(1);
+});
+
+test("the privacy page explains analytics use and offers contact", async ({ page }) => {
+  await page.goto("/privacidade/");
+  await expect(page.getByRole("heading", { name: "Informações sobre dados e navegação" })).toBeVisible();
+  await expect(page.getByRole("main").getByRole("link", { name: "contato@rapha-albino.com.br" })).toHaveAttribute("href", "mailto:contato@rapha-albino.com.br");
 });
 
 test("essay pages retain the full site menu and offer a return at the end", async ({ page }) => {
