@@ -7,6 +7,29 @@ const purchaseUrl = "https://softwarezen.com.br/livros/antes-de-mim/";
 const videoUrl = "https://www.youtube.com/watch?v=UYHlW2VYCOo";
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 const coverUrl = new URL("/images/capa-antes-de-mim.jpg", Astro.site);
+const description = "Antes de Mim, de Raphael Albino: 29 ensaios sobre ancestralidade, raça, trabalho, amor e a possibilidade de existir inteiro.";
+const bookSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Book",
+  name: "Antes de Mim",
+  alternateName: "Um reencontro com quem nos torna quem somos",
+  author: {
+    "@type": "Person",
+    name: "Raphael Albino",
+    url: "https://rapha-albino.com.br",
+    sameAs: ["https://www.instagram.com/rapha_albino/"],
+  },
+  description,
+  inLanguage: "pt-BR",
+  numberOfPages: 130,
+  image: coverUrl.href,
+  url: canonicalUrl.href,
+  offers: {
+    "@type": "Offer",
+    url: purchaseUrl,
+    availability: "https://schema.org/InStock",
+  },
+});
 
 const readingPaths = [
   { number: "01", title: "O esforço de ser inteiro", question: "O que eu precisei esconder para caber?", href: "/ensaios/esforco-de-ser-inteiro/" },
@@ -21,6 +44,17 @@ const chapters = [
   ["1:14:08", 4448, "Ancestralidade e empatia"],
   ["1:30:36", 5436, "Esperança como vontade de viver"],
 ];
+
+const testimonials = [
+  ["Mariana Graf", "Além de ter destacado algumas frases que me trouxeram impacto, exercitei ideias que pareciam velhas conhecidas, mas renderam um mergulho profundo na vida que estou reconstruindo."],
+  ["Fer Baruk", "Me senti como se tivesse o privilégio de uma conversa de fala calma, daquelas que chegam e te explodem por dentro."],
+  ["Pérola do Amaral Franco", "Em 130 páginas, Raphael me fez rir e chorar com suas histórias."],
+  ["Priscila K.", "Albino dá voz ao que muitos vivenciam e sentem, mas frequentemente não encontram espaço para expressar."],
+  ["Diego Eis", "Você se vê. Você vê outras pessoas. Entendendo a perspectiva do outro, expande muito o seu senso de empatia e visão de mundo."],
+  ["Jeniffer Deus", "Um convite a honrar o passado, estar no presente e imaginar futuros mais justos e bons para todas as pessoas."],
+  ["Cindy Morais", "Se o leitor se propor a refletir sobre as perguntas, já vai sair deste livro sabendo mais sobre si mesmo do que entrou."],
+  ["Lucas Colucci", "Rápido, dinâmico e muito profundo: uma leitura necessária."],
+];
 ---
 
 <!doctype html>
@@ -29,15 +63,21 @@ const chapters = [
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Antes de Mim, de Raphael Albino — um livro sobre as histórias que nos formam e as escolhas que fazemos com elas." />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index,follow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="canonical" href={canonicalUrl} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:title" content="Antes de Mim — Raphael Albino" />
-    <meta property="og:description" content="Um livro sobre as histórias que nos formam e as escolhas que fazemos com elas." />
+    <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={coverUrl} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Antes de Mim — Raphael Albino" />
+    <meta name="twitter:description" content={description} />
+    <script type="application/ld+json" set:html={bookSchema}></script>
     <title>Antes de Mim — Raphael Albino</title>
   </head>
   <body>
@@ -102,11 +142,14 @@ const chapters = [
         <p class="eyebrow">Vozes de leitura</p>
         <h2 id="titulo-vozes">O livro começa em uma história, mas não termina nela.</h2>
         <p class="section-intro">Estas são algumas das leituras que ele encontrou pelo caminho.</p>
-        <div class="testimonials">
-          <figure class="testimonial"><blockquote>“Além de ter destacado algumas frases que me trouxeram impacto, exercitei ideias que pareciam velhas conhecidas, mas renderam um mergulho profundo na vida que estou reconstruindo.”</blockquote><figcaption>Mariana Graf · Amazon</figcaption></figure>
-          <figure class="testimonial"><blockquote>“Me senti como se tivesse o privilégio de uma conversa de fala calma, daquelas que chegam e te explodem por dentro.”</blockquote><figcaption>Fer Baruk · Amazon</figcaption></figure>
-          <figure class="testimonial"><blockquote>“Em 130 páginas, Raphael me fez rir e chorar com suas histórias.”</blockquote><figcaption>Pérola do Amaral Franco · Amazon</figcaption></figure>
-          <figure class="testimonial"><blockquote>“Um convite a honrar o passado, estar no presente e imaginar futuros mais justos e bons para todas as pessoas.”</blockquote><figcaption>Jeniffer Deus · Amazon</figcaption></figure>
+        <div class="testimonial-carousel" role="region" aria-roledescription="carrossel" aria-label="Relatos de leitura">
+          <div class="carousel-controls">
+            <p><span id="testimonial-status">1 de {testimonials.length}</span> relatos</p>
+            <div><button class="carousel-button" type="button" data-carousel-previous aria-label="Ver relato anterior" disabled>←</button><button class="carousel-button" type="button" data-carousel-next aria-label="Ver próximo relato">→</button></div>
+          </div>
+          <div class="testimonials" data-carousel-track tabindex="0" aria-describedby="testimonial-status">
+            {testimonials.map(([name, quote], index) => <figure class="testimonial" aria-label={`Relato ${index + 1} de ${testimonials.length}`}><blockquote>“{quote}”</blockquote><figcaption>{name} · Amazon</figcaption></figure>)}
+          </div>
         </div>
       </section>
 
@@ -148,6 +191,25 @@ const chapters = [
 
       sections.forEach((section) => observer.observe(section));
       navigationLinks.forEach((link) => link.addEventListener("click", () => setActiveLink(link.dataset.section ?? "")));
+
+      const carousel = document.querySelector<HTMLElement>("[data-carousel-track]");
+      const previous = document.querySelector<HTMLButtonElement>("[data-carousel-previous]");
+      const next = document.querySelector<HTMLButtonElement>("[data-carousel-next]");
+      const status = document.getElementById("testimonial-status");
+
+      if (carousel && previous && next && status) {
+        const cards = [...carousel.querySelectorAll<HTMLElement>(".testimonial")];
+        const updateCarousel = () => {
+          const current = Math.min(cards.length - 1, Math.max(0, Math.round(carousel.scrollLeft / cards[0].offsetWidth)));
+          status.textContent = `${current + 1} de ${cards.length}`;
+          previous.disabled = current === 0;
+          next.disabled = current === cards.length - 1;
+        };
+        previous.addEventListener("click", () => carousel.scrollBy({ left: -cards[0].offsetWidth, behavior: "smooth" }));
+        next.addEventListener("click", () => carousel.scrollBy({ left: cards[0].offsetWidth, behavior: "smooth" }));
+        carousel.addEventListener("scroll", updateCarousel, { passive: true });
+        updateCarousel();
+      }
     </script>
   </body>
 </html>

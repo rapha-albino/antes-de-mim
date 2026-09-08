@@ -11,6 +11,16 @@ interface Props {
 const { title, description } = Astro.props;
 const purchaseUrl = "https://softwarezen.com.br/livros/antes-de-mim/";
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const articleSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: title,
+  description,
+  inLanguage: "pt-BR",
+  mainEntityOfPage: canonicalUrl.href,
+  author: { "@type": "Person", name: "Raphael Albino", url: "https://rapha-albino.com.br" },
+  isPartOf: { "@type": "Book", name: "Antes de Mim" },
+});
 ---
 
 <!doctype html>
@@ -20,12 +30,15 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    <meta name="robots" content="index,follow" />
     <link rel="canonical" href={canonicalUrl} />
     <meta property="og:type" content="article" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:title" content={`${title} — Antes de Mim`} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
+    <meta name="twitter:card" content="summary" />
+    <script type="application/ld+json" set:html={articleSchema}></script>
     <title>{title} — Antes de Mim</title>
   </head>
   <body>

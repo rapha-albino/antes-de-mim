@@ -38,6 +38,22 @@ test("every reading path leads to its essay and back to the reading paths", asyn
   }
 });
 
+test("the reader testimonials carousel exposes all eight reviews with accessible controls", async ({ page }) => {
+  await page.goto("/");
+  const carousel = page.getByRole("region", { name: "Relatos de leitura" });
+  await expect(carousel.getByRole("figure")).toHaveCount(8);
+  await expect(carousel.getByRole("button", { name: "Ver relato anterior" })).toBeDisabled();
+  await carousel.getByRole("button", { name: "Ver próximo relato" }).click();
+  await expect(page.locator("#testimonial-status")).toContainText("2 de 8");
+});
+
+test("the home page exposes search and sharing metadata", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://antesdemim.art.br/");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /29 ensaios/);
+  await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(1);
+});
+
 test("essay pages retain the full site menu and offer a return at the end", async ({ page }) => {
   await page.goto("/ensaios/esforco-de-ser-inteiro/");
   await expect(page.getByRole("navigation", { name: "Navegação principal" })).toBeVisible();
