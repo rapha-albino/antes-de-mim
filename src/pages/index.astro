@@ -145,7 +145,7 @@ const testimonials = [
         <div class="testimonial-carousel" role="region" aria-roledescription="carrossel" aria-label="Relatos de leitura">
           <div class="carousel-controls">
             <p><span id="testimonial-status">1 de {testimonials.length}</span> relatos</p>
-            <div><button class="carousel-button" type="button" data-carousel-previous aria-label="Ver relato anterior" disabled>←</button><button class="carousel-button" type="button" data-carousel-next aria-label="Ver próximo relato">→</button></div>
+            <div><button class="carousel-button" type="button" data-carousel-previous aria-label="Ver relato anterior">←</button><button class="carousel-button" type="button" data-carousel-next aria-label="Ver próximo relato">→</button></div>
           </div>
           <div class="testimonials" data-carousel-track tabindex="0" aria-describedby="testimonial-status">
             {testimonials.map(([name, quote], index) => <figure class="testimonial" aria-label={`Relato ${index + 1} de ${testimonials.length}`}><blockquote>“{quote}”</blockquote><figcaption>{name} · Amazon</figcaption></figure>)}
@@ -199,15 +199,18 @@ const testimonials = [
 
       if (carousel && previous && next && status) {
         const cards = [...carousel.querySelectorAll<HTMLElement>(".testimonial")];
+        let current = 0;
         const updateCarousel = () => {
-          const current = Math.min(cards.length - 1, Math.max(0, Math.round(carousel.scrollLeft / cards[0].offsetWidth)));
+          current = Math.min(cards.length - 1, Math.max(0, Math.round(carousel.scrollLeft / cards[0].offsetWidth)));
           status.textContent = `${current + 1} de ${cards.length}`;
-          previous.disabled = current === 0;
-          next.disabled = current === cards.length - 1;
         };
-        previous.addEventListener("click", () => carousel.scrollBy({ left: -cards[0].offsetWidth, behavior: "smooth" }));
-        next.addEventListener("click", () => carousel.scrollBy({ left: cards[0].offsetWidth, behavior: "smooth" }));
-        carousel.addEventListener("scroll", updateCarousel, { passive: true });
+        const showCard = (index: number) => {
+          current = (index + cards.length) % cards.length;
+          carousel.scrollTo({ left: cards[current].offsetLeft, behavior: "smooth" });
+          status.textContent = `${current + 1} de ${cards.length}`;
+        };
+        previous.addEventListener("click", () => showCard(current - 1));
+        next.addEventListener("click", () => showCard(current + 1));
         updateCarousel();
       }
     </script>

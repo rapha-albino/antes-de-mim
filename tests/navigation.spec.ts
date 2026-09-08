@@ -42,9 +42,12 @@ test("the reader testimonials carousel exposes all eight reviews with accessible
   await page.goto("/");
   const carousel = page.getByRole("region", { name: "Relatos de leitura" });
   await expect(carousel.getByRole("figure")).toHaveCount(8);
-  await expect(carousel.getByRole("button", { name: "Ver relato anterior" })).toBeDisabled();
-  await carousel.getByRole("button", { name: "Ver próximo relato" }).click();
+  await expect(carousel.getByRole("button", { name: "Ver relato anterior" })).toBeEnabled();
+  const next = carousel.getByRole("button", { name: "Ver próximo relato" });
+  await next.click();
   await expect(page.locator("#testimonial-status")).toContainText("2 de 8");
+  for (let index = 0; index < 7; index += 1) await next.click();
+  await expect(page.locator("#testimonial-status")).toContainText("1 de 8");
 });
 
 test("the home page exposes search and sharing metadata", async ({ page }) => {
